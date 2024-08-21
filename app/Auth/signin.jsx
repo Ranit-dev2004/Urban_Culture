@@ -10,7 +10,7 @@ import GoogleImage from '../../assets/google.png';
 import TwitterImage from '../../assets/tweeter.png';
 import AppleImage from '../../assets/apple.png';
 
-const Signin = ({ onNext }) => { 
+const Signin = ({ onNext, onSkip }) => { 
   const [fontLoaded, setFontLoaded] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -137,7 +137,7 @@ const Signin = ({ onNext }) => {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.forgotPassword}
-        onPress={() => Alert.alert('Forgot Password', 'Password reset functionality is not implemented yet.')}
+        onPress={onSkip}
       >
         <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
       </TouchableOpacity>

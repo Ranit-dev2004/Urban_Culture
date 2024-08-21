@@ -5,37 +5,36 @@ import Splashscreen2 from './app/splashscreens/splashscreen2';
 import Splashscreen3 from './app/splashscreens/splashscreen3';
 import Signin from './app/Auth/signin';
 import Signup from './app/Auth/signup';
+import ForgotPassword from './app/Auth/ForgotPassword';
 
 const Navigation = () => {
-    const [currentScreen, setCurrentScreen] = useState(1);
+    const [currentScreen, setCurrentScreen] = useState('splash1');
 
-    const handleNext = () => {
-        setCurrentScreen((prev) => prev + 1);
+    const handleNext = (nextScreen) => {
+        setCurrentScreen(nextScreen);
     };
 
-    const handlePrevious = () => {
-        setCurrentScreen((prev) => prev - 1);
-    };
-
-    const handleSkip = (target) => {
-        setCurrentScreen(target);
+    const handlePrevious = (previousScreen) => {
+        setCurrentScreen(previousScreen);
     };
 
     switch (currentScreen) {
-        case 1:
-            return <Splashscreen onNext={handleNext} />;
-        case 2:
-            return <Splashscreen1 onNext={handleNext} onSkip={() => handleSkip('signin')} />;
-        case 3:
-            return <Splashscreen2 onNext={handleNext} onPrevious={handlePrevious} onSkip={() => handleSkip('signin')} />;
-        case 4:
-            return <Splashscreen3 onPrevious={handlePrevious} onSkip={() => handleSkip('signin')} />;
+        case 'splash1':
+            return <Splashscreen onNext={() => handleNext('splash2')} />;
+        case 'splash2':
+            return <Splashscreen1 onNext={() => handleNext('splash3')} onSkip={() => handleNext('signin')} />;
+        case 'splash3':
+            return <Splashscreen2 onNext={() => handleNext('splash4')} onPrevious={() => handlePrevious('splash2')} onSkip={() => handleNext('signin')} />;
+        case 'splash4':
+            return <Splashscreen3 onPrevious={() => handlePrevious('splash3')} onSkip={() => handleNext('signin')} />;
         case 'signin':
-            return <Signin onNext={() => handleSkip('signup')} />;
+            return <Signin onNext={() => handleNext('signup')} onSkip={() => handleNext('forgotPassword')} />;
         case 'signup':
-            return <Signup />;
+            return <Signup onPrevious={() => handleNext('signin')} />;
+        case 'forgotPassword':
+            return <ForgotPassword onPrevious={() => handleNext('signin')} />;
         default:
-            return <Splashscreen onNext={handleNext} />;
+            return <Splashscreen onNext={() => handleNext('splash2')} />;
     }
 };
 

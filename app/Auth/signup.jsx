@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { StyleSheet, View, Text, TextInput, ActivityIndicator, Alert, Image, TouchableOpacity, Animated } from 'react-native';
 import * as Font from 'expo-font';
 import Vector28 from '../../components/vector28';
@@ -10,10 +10,11 @@ import GoogleImage from '../../assets/google.png';
 import TwitterImage from '../../assets/tweeter.png';
 import AppleImage from '../../assets/apple.png';
 
-const Signin = () => {
+const Signin = ({onPrevious}) => {
   const [fontLoaded, setFontLoaded] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState(''); // New state for confirm password
   const [loading, setLoading] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [buttonAnimation, setButtonAnimation] = useState(new Animated.Value(1));
@@ -64,7 +65,6 @@ const Signin = () => {
 
   const handleSocialAuth = (provider) => {
     Alert.alert('Social Auth', `Authenticate with ${provider}`);
-    // Implement actual social auth here
   };
 
   const togglePasswordVisibility = () => {
@@ -124,6 +124,20 @@ const Signin = () => {
           <Image source={passwordVisible ? Eye : EyeOff} style={styles.eye} />
         </TouchableOpacity>
       </View>
+      <Image source={Group} style={styles.Group} />
+      <View style={styles.passwordContainer}>
+        <TextInput
+          style={styles.input2}
+          placeholder="Confirm Password"
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
+          secureTextEntry={!passwordVisible}
+          autoCapitalize="none"
+        />
+        <TouchableOpacity onPress={togglePasswordVisibility} style={styles.eyeContainer}>
+          <Image source={passwordVisible ? Eye : EyeOff} style={styles.eye} />
+        </TouchableOpacity>
+      </View>
       <TouchableOpacity
         style={[styles.button, { transform: [{ scale: buttonAnimation }] }]}
         onPress={() => {
@@ -133,16 +147,10 @@ const Signin = () => {
         disabled={loading}
       >
         <Text style={styles.buttonText}>
-          {loading ? 'Signing in...' : 'Sign In'}
+          {loading ? 'Signing up...' : 'Sign up'}
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.forgotPassword}
-        onPress={() => Alert.alert('Forgot Password', 'Password reset functionality is not implemented yet.')}
-      >
-        <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-      </TouchableOpacity>
-      <Text style={styles.text1}>- OR Continue With -</Text>
+      <Text style={styles.text1}>By clicking the Register button, you agree to the public offer</Text>
       <View style={styles.socialButtons}>
         <TouchableOpacity onPress={() => handleSocialAuth('Google')}>
           <Image source={GoogleImage} style={styles.socialIcon} />
@@ -154,10 +162,10 @@ const Signin = () => {
           <Image source={AppleImage} style={styles.socialIcon} />
         </TouchableOpacity>
       </View>
-      <Text style={styles.text2}>Create An Account</Text>
-      <TouchableOpacity onPress={() => handleSocialAuth('Apple')}>
-          <Text style={styles.text3}>Sign up</Text>
-        </TouchableOpacity>
+      <Text style={styles.text2}>I already have an account</Text>
+      <TouchableOpacity onPress={onPrevious}>
+        <Text style={styles.text3}>Sign in</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -191,6 +199,18 @@ const styles = StyleSheet.create({
     left:-152,
   },
   input: {
+    width: 310,
+    height: 45,
+    borderColor: '#ddd',
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 50,
+    fontSize: 18,
+    marginTop: 20,
+    left:-20,
+    bottom:68
+  },
+  input2: {
     width: 310,
     height: 45,
     borderColor: '#ddd',
@@ -248,54 +268,45 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   forgotPassword: {
-    marginTop: 20,
-    bottom:150,
-    left:70
-  },
-  forgotPasswordText: {
-    color: '#8D6E63', 
-    fontSize: 16,
-    textDecorationLine: 'underline',
+    marginTop: 10,
+    color: '#000000',
+    left: 110,
+    bottom:20,
   },
   text1: {
-    color: '#ff',
-    fontSize: 18,
-    fontWeight: 'bold',
-    bottom:15,
+    color: '#000000',
+    left: 3,
+    bottom:125,
   },
   socialButtons: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '60%',
     marginTop: 20,
   },
   socialIcon: {
-    width: 40,
-    height: 40,
+    width: 50, 
+    height: 50, 
     marginHorizontal: 10,
+    bottom:15,
   },
   text2: {
-    fontFamily: 'Taviraj-Regular',
-    fontSize: 20,
-    lineHeight: 70, 
-    color: '#3D3B3B',
-    textShadowColor: 'rgba(0, 0, 0, 0.25)',
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 10,
-    bottom: -10,
-    left: -35,
+    color: '#000000',
+    fontFamily:'Taviraj-Regular',
+    fontSize: 18,
+    lineHeight: 70,
+    left: -49,
+    top:18,
   },
   text3: {
-    fontFamily: 'Taviraj-Regular',
-    fontSize: 20,
-    lineHeight: 70, 
-    color: '#3D3B3B',
-    textShadowColor: 'rgba(0, 0, 0, 0.25)',
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 10,
+    color: '#000000',
+    fontFamily:'Taviraj-Regular',
+    fontSize:17,
+    left: 87,
+    top:-30,
     textDecorationLine: 'underline',
-    bottom:60,
-    left:95,
+    
   },
-  
 });
 
 export default Signin;
