@@ -1,12 +1,12 @@
 import { StyleSheet, View } from 'react-native';
 import Splashscreen from './app/splashscreens/splashscreen';
-import SplashNavigation from './SplashNavigation';
+import Navigation from './Navigation';
 import React from 'react';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <SplashNavigation/>
+      <Navigation/>
     </View>
   );
 }

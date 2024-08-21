@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { StyleSheet, View, Text, TextInput, ActivityIndicator, Alert, Image, TouchableOpacity, Animated } from 'react-native';
 import * as Font from 'expo-font';
 import Vector28 from '../../components/vector28';
@@ -10,13 +10,13 @@ import GoogleImage from '../../assets/google.png';
 import TwitterImage from '../../assets/tweeter.png';
 import AppleImage from '../../assets/apple.png';
 
-const Signin = ({ onNext }) => { 
+const Signin = () => {
   const [fontLoaded, setFontLoaded] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [buttonAnimation] = useState(new Animated.Value(1));
+  const [buttonAnimation, setButtonAnimation] = useState(new Animated.Value(1));
 
   useEffect(() => {
     const loadFonts = async () => {
@@ -64,6 +64,7 @@ const Signin = ({ onNext }) => {
 
   const handleSocialAuth = (provider) => {
     Alert.alert('Social Auth', `Authenticate with ${provider}`);
+    // Implement actual social auth here
   };
 
   const togglePasswordVisibility = () => {
@@ -95,9 +96,9 @@ const Signin = ({ onNext }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.greetingContainer}>
-        <Text style={styles.Text}>Welcome</Text>
-        <Text style={styles.Text}>Back:)</Text>
+      <View>
+        <Text style={styles.Text}>Create an </Text>
+        <Text style={styles.Text}>Account :)</Text>
       </View>
       <Vector28 style={styles.vector} width={800} height={1000} />
       <Image source={UserImage} style={styles.userImage} />
@@ -154,12 +155,13 @@ const Signin = ({ onNext }) => {
         </TouchableOpacity>
       </View>
       <Text style={styles.text2}>Create An Account</Text>
-      <TouchableOpacity onPress={onNext}>
-        <Text style={styles.text3}>Sign up</Text>
-      </TouchableOpacity>
+      <TouchableOpacity onPress={() => handleSocialAuth('Apple')}>
+          <Text style={styles.text3}>Sign up</Text>
+        </TouchableOpacity>
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
@@ -174,7 +176,7 @@ const styles = StyleSheet.create({
     fontSize: 50,
     lineHeight: 70, 
     letterSpacing: 4,
-    color: '#4D6D5E',
+    color: '#3D3B3B',
     textShadowColor: 'rgba(0, 0, 0, 0.25)',
     textShadowOffset: { width: 2, height: 2 },
     textShadowRadius: 10,
