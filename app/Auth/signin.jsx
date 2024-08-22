@@ -10,7 +10,7 @@ import GoogleImage from '../../assets/google.png';
 import TwitterImage from '../../assets/tweeter.png';
 import AppleImage from '../../assets/apple.png';
 
-const Signin = ({ onNext, onSkip }) => { 
+const Signin = ({ onNext, onSkip ,onPrevious }) => { 
   const [fontLoaded, setFontLoaded] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -36,7 +36,7 @@ const Signin = ({ onNext, onSkip }) => {
   const handleSignin = async () => {
     setLoading(true);
     try {
-      const response = await fetch('https://your-backend-api.com/auth/signin', {
+      const response = await fetch('http://192.168.0.3:8080/api/auth/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -50,7 +50,12 @@ const Signin = ({ onNext, onSkip }) => {
       const data = await response.json();
 
       if (response.ok) {
-        Alert.alert('Success', 'You are signed in!');
+        Alert.alert('Success', 'You are signed in!', [
+          {
+            text: 'OK',
+            onPress: () => onPrevious('HomePage'),
+          },
+        ]);
       } else {
         Alert.alert('Error', data.message || 'Something went wrong');
       }

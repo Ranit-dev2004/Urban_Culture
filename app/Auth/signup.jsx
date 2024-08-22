@@ -10,11 +10,11 @@ import GoogleImage from '../../assets/google.png';
 import TwitterImage from '../../assets/tweeter.png';
 import AppleImage from '../../assets/apple.png';
 
-const Signin = ({onPrevious}) => {
+const SignUp = ({ onPrevious }) => {
   const [fontLoaded, setFontLoaded] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState(''); // New state for confirm password
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [buttonAnimation, setButtonAnimation] = useState(new Animated.Value(1));
@@ -35,9 +35,14 @@ const Signin = ({onPrevious}) => {
   }, []);
 
   const handleSignin = async () => {
+    if (password !== confirmPassword) {
+      Alert.alert('Error', 'Passwords do not match.');
+      return;
+    }
+  
     setLoading(true);
     try {
-      const response = await fetch('https://your-backend-api.com/auth/signin', {
+      const response = await fetch('http://192.168.0.3:8080/api/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -47,11 +52,16 @@ const Signin = ({onPrevious}) => {
           password: password,
         }),
       });
-
+  
       const data = await response.json();
-
+  
       if (response.ok) {
-        Alert.alert('Success', 'You are signed in!');
+        Alert.alert('Success', 'You are signed up!', [
+          {
+            text: 'OK',
+            onPress: () => onPrevious('signin'),
+          },
+        ]);
       } else {
         Alert.alert('Error', data.message || 'Something went wrong');
       }
@@ -62,10 +72,7 @@ const Signin = ({onPrevious}) => {
       setLoading(false);
     }
   };
-
-  const handleSocialAuth = (provider) => {
-    Alert.alert('Social Auth', `Authenticate with ${provider}`);
-  };
+  
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -163,13 +170,12 @@ const Signin = ({onPrevious}) => {
         </TouchableOpacity>
       </View>
       <Text style={styles.text2}>I already have an account</Text>
-      <TouchableOpacity onPress={onPrevious}>
+      <TouchableOpacity onPress={() => onPrevious('signin')}>
         <Text style={styles.text3}>Sign in</Text>
       </TouchableOpacity>
     </View>
   );
-};
-
+}
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
@@ -309,4 +315,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Signin;
+export default SignUp;
