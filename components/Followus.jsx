@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   },
   followUs: {
     position: "absolute",
-    top: 1000,
+    top: 970,
     left: -15,
     width: 375,
     height: 456,

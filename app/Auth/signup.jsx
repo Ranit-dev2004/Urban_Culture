@@ -42,7 +42,7 @@ const SignUp = ({ onPrevious }) => {
   
     setLoading(true);
     try {
-      const response = await fetch('http://192.168.0.3:8080/api/auth/signup', {
+      const response = await fetch('http://192.168.0.3:8080/api/products/${searchText}', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

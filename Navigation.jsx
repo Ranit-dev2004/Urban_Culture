@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Alert } from 'react-native';
 import Splashscreen from './app/splashscreens/splashscreen';
 import Splashscreen1 from './app/splashscreens/splashscreen1';
 import Splashscreen2 from './app/splashscreens/splashscreen2';
@@ -8,6 +7,7 @@ import Signin from './app/Auth/signin';
 import Signup from './app/Auth/signup';
 import ForgotPassword from './app/Auth/ForgotPassword';
 import HomePage from './app/HomePage/HomePage1';
+import Search from './app/search/search'
 
 const Navigation = () => {
     const [currentScreen, setCurrentScreen] = useState('splash1');
@@ -36,7 +36,9 @@ const Navigation = () => {
         case 'forgotPassword':
             return <ForgotPassword onPrevious={() => handleNext('signin')} />;
         case 'HomePage':
-            return <HomePage />;
+            return <HomePage onScreen={()=>handleNext('search')}/>;
+        case 'search':
+            return <Search />;
         default:
             return <Splashscreen onNext={() => handleNext('splash2')} />;
     }

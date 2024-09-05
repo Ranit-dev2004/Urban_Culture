@@ -51,7 +51,7 @@ const Justforyou = () => {
 
 const styles = StyleSheet.create({
     justForYou: {
-        top: 1090,
+        top: 1050,
         left: -25,
         width: 373,
         height: 531,

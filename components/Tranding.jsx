@@ -41,7 +41,7 @@ const Tranding=()=>{
 }
 const styles = StyleSheet.create({
 trending: {
-    top: 509,
+    top: 709,
     height: 138,
     justifyContent: "center",
     paddingLeft: 6,

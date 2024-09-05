@@ -166,10 +166,9 @@ const styles = StyleSheet.create({
     footerPrimary: {
       height: 333,
       width: 385,
-      top:1150,
+      top:1095,
       alignSelf:'center'
     },
   });
   
   export default Footer;
-  
