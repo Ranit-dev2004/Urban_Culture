@@ -91,7 +91,6 @@ const Search = () => {
     source={{ uri: product.image }} 
   />
 </View>
-
         )}
       </View>
     </View>

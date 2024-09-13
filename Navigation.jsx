@@ -8,6 +8,7 @@ import Signup from './app/Auth/signup';
 import ForgotPassword from './app/Auth/ForgotPassword';
 import HomePage from './app/HomePage/HomePage1';
 import Search from './app/search/search'
+import CollectionDetails from './app/Collections/collectionDetails';
 
 const Navigation = () => {
     const [currentScreen, setCurrentScreen] = useState('splash1');
@@ -36,9 +37,11 @@ const Navigation = () => {
         case 'forgotPassword':
             return <ForgotPassword onPrevious={() => handleNext('signin')} />;
         case 'HomePage':
-            return <HomePage onScreen={()=>handleNext('search')}/>;
+            return <HomePage onScreen={()=>handleNext('search')} onCollection={()=>handleNext('collection')}/>;
         case 'search':
             return <Search />;
+        case 'collection':
+            return <CollectionDetails/>
         default:
             return <Splashscreen onNext={() => handleNext('splash2')} />;
     }

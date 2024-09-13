@@ -5,7 +5,6 @@ import search from '../../assets/Search (1).png';
 import bag from '../../assets/shopping bag (2).png'
 import FrameComponent2 from '../../components/FrameComponent2';
 import Showcase from '../../components/showcase';
-import Collections from '../../components/collections';
 import Justforyou from '../../components/Justforyou';
 import Tranding from '../../components/Tranding';
 import UrbanCulture from '../../components/URBANCULTURE';
@@ -14,7 +13,7 @@ import FollowUs from '../../components/Followus';
 import Footer from '../../components/Footer';
 import * as Font from 'expo-font';
 
-const HomePage = ({onScreen}) => {
+const HomePage = ({onScreen,onCollection}) => {
   const [fontLoaded, setFontLoaded] = useState(false);
 
   useEffect(() => {
@@ -22,6 +21,8 @@ const HomePage = ({onScreen}) => {
       try {
         await Font.loadAsync({
           'Stoke-Regular': require('../../assets/fonts/Stoke-Regular.ttf'),
+          'Taviraj-Light': require('../../assets/fonts/Taviraj-Light.ttf'),
+          'Taviraj-Regular': require('../../assets/fonts/Taviraj-Regular.ttf')
         });
         setFontLoaded(true);
       } catch (error) {
@@ -61,7 +62,6 @@ const HomePage = ({onScreen}) => {
     source={search}
   />
 </TouchableOpacity>
-
          <Image
                 style={[styles.shoppingBagIcon, styles.iconLayout]}
                 resizeMode="cover"
@@ -80,7 +80,36 @@ const HomePage = ({onScreen}) => {
           <FrameComponent2 />
           <Showcase />
           <View style={styles.Collections}>
-            <Collections />
+          <View style={styles.CollectionsParent}>
+            <View>
+            <Text style={styles.Collections}>
+                {`Collection's`}
+                </Text>
+            </View>
+            <View>
+            <Image
+        style={styles.image1}
+        resizeMode="cover"
+        source={require("../../assets/Image.png")}
+      />
+      <Image
+        style={styles.image2}
+        resizeMode="cover"
+        source={require("../../assets/Image.png")}
+      />
+      <Image
+        style={styles.image3}
+        resizeMode="cover"
+        source={require("../../assets/Image.png")}
+      />
+      <View>
+        <TouchableOpacity onPress={onCollection} style={styles.button}>
+        <Text style={styles.text}>{'Explore More'}
+        </Text>
+        </TouchableOpacity>
+      </View>
+            </View>
+            </View>
             <Justforyou />
             <Tranding/>
             <View style={[styles.UrbanCulture, styles.frame1Position]}>
@@ -135,9 +164,6 @@ const styles = StyleSheet.create({
   brandPosition: {
     position: "absolute",
     alignItems: "center",
-  },
-  Collections: {
-    margin: 10,
   },
   urbanCultureParent: {
     width: 339,
@@ -208,5 +234,67 @@ const styles = StyleSheet.create({
   },
   shoppingBagIcon: {
     marginLeft: 16,
+  },
+  Collections: {
+    alignSelf: "stretch",
+    fontSize: 20,
+    fontFamily: 'Taviraj-Light',
+    letterSpacing: 3,
+    textTransform: "uppercase",
+    fontWeight: "300",
+    color: "#000",
+    textAlign: "center",
+    lineHeight: 27,
+    marginTop:'3%'
+  },
+  CollectionsParent: {
+      width: 321,
+      alignItems: "center",
+    },
+  image1:{
+      width:450,
+      height:250,
+  },
+  image2:{
+      width:260,
+      height:296,
+      margin:20,
+      alignSelf:'center'
+  },
+  image3:{
+      width:447,
+      height:236,
+      alignSelf:'center'
+  },
+  button: {
+      width:200,
+      height:55,
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderColor:'#000',
+      borderRadius: 12,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 3 },
+      shadowOpacity: 0.7,
+      elevation: 20,
+      alignSelf:'center'
+    },
+    text: {
+      color: '#4F4F4F',
+      fontFamily:'Taviraj-Regular',
+      fontSize: 15,
+      textAlign: 'center',
+      textShadowColor: 'rgba(0, 0, 0, 0.25)',
+      textShadowOffset: { width: 2, height: 2 },
+      textShadowRadius: 2,
+      bottom:10,
+      letterSpacing:1.43,
+      lineHeight:50
+    },
+    image: {
+      width: 23, 
+      height: 33,
   },
 });
